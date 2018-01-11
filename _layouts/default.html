@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-  {% include head.html %}
+{% include head.html %}
 
-  <body class="layout-reverse">
+<body class="layout-reverse">
 
-    {% include sidebar.html %}
-
+  {% include sidebar.html %}
+  <div clsss ="content">
     <div class="content container">
       {{ content }}
     </div>
+    {% include bottombar.html %}
+  </div>
 
-  </body>
+</body>
 </html>

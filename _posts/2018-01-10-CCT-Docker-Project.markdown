@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CCT Pi Cloud Project Using a Docker-Jin"
-date: 2018-01-10 23:53:24 +0000
+date: 2017-12-10 23:53:24 +0000
 ---
 
 독커엔진은 독커 컨테이너가 돌수있는 환경을 제공해 준다.

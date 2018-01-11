@@ -1,0 +1,28 @@
+---
+layout: post
+title: "CCT Pi Cloud Project Using a Docker- Part 2"
+date: 2018-01-09 02:53:24 +0000
+categories: cct
+---
+
+### Installing Docker
+
+This time docker supports most platform - Windows, Linux, Mac OS - So Installing it is just straight-forward.
+Download install file from Docker-official website. and follow the instructions. then you are set.
+
+https://www.docker.com/
+
+
+### Docker Image
+
+In Docker World, In order to make a Container. you need Image. Container is instance of Image. As in, you make a Object from the Class, in programming world. If you say, Container is Object. then Image is Class.
+So you need to download image to your local machine. In order to do it, there is simple command in terminal.
+
+{% highlight c %}
+docker pull nginx:1.10.1-alpine
+// docker pull <imageName:tag>
+{% endhighlight %}
+
+Place you can search image is called Docker Hub.
+
+https://hub.docker.com/ - Find out what image you want to use and it's versions.
