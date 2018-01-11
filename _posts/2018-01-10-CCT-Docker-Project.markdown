@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "CCT-Pi-Cloud-Project-Using-a-Docker-Jin"
+title: "CCT Pi Cloud Project Using a Docker-Jin"
 date: 2018-01-10 23:53:24 +0000
 ---
 
