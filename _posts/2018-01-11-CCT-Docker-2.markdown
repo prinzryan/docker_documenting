@@ -19,8 +19,8 @@ Download install file from Docker-official website. and follow the instructions.
 In Docker World, In order to make a Container, you need Image.
 <br />
 
-Container is instance of Image. As in, you make a Object from the Class, in programming world. Imagine that Container is Object. and Image is Class.
-First fo all, you need to download image to your local machine. In order to do it, there is simple command line in terminal.
+Container is instance of Image. As in, you make a Object from the Class, in programming term. Imagine that Container is Object. and Image is Class.
+First fo all, you need to download image to your local machine (maybe in certain folder) . In order to do it, there is simple command line in terminal.
 
 {% highlight c %}
 docker pull nginx:1.10.1-alpine
