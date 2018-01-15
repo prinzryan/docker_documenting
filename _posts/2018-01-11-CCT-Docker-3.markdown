@@ -12,7 +12,7 @@ In order to run docker, we need to make container from Images.
 
 First, To make a container and run it,
 You need `docker run` command with `--name` option for setting name of containers.
-and `-p` set port-setting of containers. First number is port of Host, second number is port of container.
+and `-p` set port-setting of containers. First number is port of host, second number is port of container.
 (e.g. `3000:80` -> `localhost:3000/` will access container's port `localhost:80/` )
 
 {% highlight terminal %}
@@ -47,7 +47,7 @@ koi-utf                 nginx.conf.default
 {% endhighlight %}
 
 Let's say, if you have your own configuration text file for Nginx server that you want to run.
-You can make container with your own setting using `-v` (vomlume mounting) option in `docker run` command.
+You can make container with your own setting using `-v` (volume mounting) option in `docker run` command.
 It goes like this.
 
 {% highlight terminal %}
