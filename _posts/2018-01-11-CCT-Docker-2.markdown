@@ -5,28 +5,44 @@ date: 2018-01-09 02:53:24 +0000
 categories: cct
 ---
 
-### Installing Docker
+## Installing Docker
 
-This time docker supports most platform - Windows, Linux, Mac OS - So Installing it is just straight-forward.
+At the moment, docker supports most platform - Windows, Linux, Mac OS - So Installing it is just straight-forward.
 Download install file from Docker-official website. and follow the instructions. then you are set.
 
 * [Docker official web](http://docker.com)
 * [Docker download portal](https://www.docker.com/community-edition)
 
 
-### Docker Image
-<br />
+## Docker Image
 In Docker World, In order to make a Container, you need Image.
 <br />
 
 Container is instance of Image. As in, you make a Object from the Class, in programming term. Imagine that Container is Object. and Image is Class.
 First fo all, you need to download image to your local machine (maybe in certain folder) . In order to do it, there is simple command line in terminal.
 
-{% highlight c %}
-docker pull nginx:1.10.1-alpine
+{% highlight terminal %}
+~$ docker pull nginx:1.12.2-alpine
 // docker pull <imageName:tag>
 {% endhighlight %}
 
 Place you can search images is called Docker Hub.
-
 [Docker Hub](https://hub.docker.com/) - Find out what image you want to use and it's versions.
+
+Afer you download images, you can check using this command. : `docker images`
+{% highlight terminal %}
+~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               1.12.2-alpine       24ed1c575f81        4 days ago          15.5MB
+~$
+
+{% endhighlight %}
+
+If you want to delete Images : `docker rmi -f nginx:1.12.2-alpine` (`docker rmi -f <imageName:Tag>`)
+`rmi` = remove images
+
+Useful Link - [Docker Cheat Sheet](https://github.com/wsargent/docker-cheat-sheet)
+
+### Custom Docker Image.
+
+You can even make your own custom Docker Image if you want, using Dockerfile. we will talk about this later.

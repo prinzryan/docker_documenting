@@ -5,10 +5,10 @@ date: 2018-01-06 01:53:24 +0000
 categories: cct
 ---
 
-### Why Docker?
+## Why Docker?
 
 Docker solves the many problems you would encounter when you are developing software. When you making an application, you have to think about the not only application itself but, also how it runs, and where it will be deployed, and how you delivery the apps. Docker provides solutions so that you only need to focus on developing an app. using a Container concept.
 
-### What is container?
+## What is container?
 
 The container is a platform that your application will be running on. Every container has a different environment for each application’s needs. - As in, Mysql for a database, Web Apache server for website or web application. Container can contain any requirement you want. (one or many of it) You can make several containers on a one host machine. Each container will be isolated but share the resource of the host machine.

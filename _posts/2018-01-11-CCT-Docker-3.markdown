@@ -1,0 +1,150 @@
+---
+layout: post
+title: "CCT Pi Cloud Project Using a Docker- Part 3"
+date: 2018-01-13 02:53:24 +0000
+categories: cct
+---
+
+## Making a Container and Running
+
+Now we are ready to run Docker. We have images.
+In order to run docker, we need to make container from Images.
+
+First, To make a container and run it,
+You need `docker run` command
+`--name` set name of containers.
+`-p` set port-setting of containers. First number is port of Host, second number is port of container.
+(e.g. `3000:80` -> `localhost:3000/` will access container's port `localhost:80/` )
+
+{% highlight terminal %}
+~/documents/docker$ docker run --name my-nginx -p 80:80 nginx:1.12.2-alpine
+{% endhighlight %}
+
+
+If you add `-d` option in Command line, you can run container as -Demon Mode.
+which mean it will run in background.
+
+{% highlight terminal %}
+~/documents/docker$ docker run -d --name my-nginx -p 80:80 nginx:1.12.2-alpine
+{% endhighlight %}
+
+If you want to run command line tool in the container, use `docker exec` command.
+and `-ti my-nginx /bin/sh` options.
+
+{% highlight terminal %}
+~/documents/docker$ docker exec -ti my-nginx /bin/sh
+/ # ls
+bin    etc    lib    mnt    root   sbin   sys    usr
+dev    home   media  proc   run    srv    tmp    var
+/ # cd etc/nginx/
+/etc/nginx # ls
+conf.d                  koi-win                 scgi_params
+fastcgi.conf            mime.types              scgi_params.default
+fastcgi.conf.default    mime.types.default      uwsgi_params
+fastcgi_params          modules                 uwsgi_params.default
+fastcgi_params.default  nginx.conf              win-utf
+koi-utf                 nginx.conf.default
+/etc/nginx #
+{% endhighlight %}
+
+Let's say, if you have your own configuration text file for Nginx server that you want to run.
+You can make container with your own setting using `-v` (vomlume mounting) option in `docker run` command.
+It goes like this.
+
+{% highlight terminal %}
+~/documents/docker$ docker run -d -v [path of your own configuration]:[path of configuration has to be]:ro --name [name] -p [port setting] [name of Docker Image]
+{% endhighlight %}
+
+before doing it, let's stop docker container and delete it.
+
+{% highlight terminal %}
+~/documents/docker$ docker ps
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMES
+d065761b3a30        nginx:1.12.2-alpine   "nginx -g 'daemon of…"   About an hour ago   Up About an hour    0.0.0.0:80->80/tcp   my-nginx
+~/documents/docker$ docker stop my-nginx
+my-nginx
+~/documents/docker$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+~/documents/docker$ docker ps -a
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                      PORTS               NAMES
+d065761b3a30        nginx:1.12.2-alpine   "nginx -g 'daemon of…"   About an hour ago   Exited (0) 15 seconds ago                       my-nginx
+~/documents/docker$ docker rm my-nginx
+my-nginx
+~/documents/docker$
+{% endhighlight %}
+
+And we have our configuration file as you can see.
+
+{% highlight terminal %}
+~/documents/docker$ ls
+nginx.conf
+~/documents/docker$ cat nginx.conf
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    gzip  on;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+~/documents/docker$
+~/documents/docker$ pwd
+/Users/rainbowtape/documents/docker
+{% endhighlight %}
+
+
+As you can see we deleted docker container, and we have our own configuration file in `/Users/rainbowtape/documents/docker/nginx.conf`
+in order to make docker container with this file.
+
+{% highlight terminal %}
+~/documents/docker$ docker run -d -v /Users/rainbowtape/documents/docker/nginx.conf:/etc/nginx/nginx.conf:ro --name my-new-nginx -p 80:80 nginx:1.12.2-alpine
+~/documents/docker$ docker ps
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMES
+1f47e275ade3        nginx:1.12.2-alpine   "nginx -g 'daemon of…"   13 seconds ago      Up 12 seconds       0.0.0.0:80->80/tcp   my-new-nginx
+~/documents/docker$
+{% endhighlight %}
+
+`ro` is mean Read Only. good to have this restriction.
+On the top of that, using more this `-v` option, you can link your local directory to Container's source directory for developing apps.
+
+{% highlight terminal %}
+~/documents/docker$ docker run -d -v /Users/rainbowtape/documents/docker/nginx.conf:/etc/nginx/nginx.conf -v /Users/rainbowtape/documents/docker/src:/usr/share/nginx/html --name my-new-nginx -p 80:80 nginx:1.12.2-alpine
+~/documents/docker$ ls
+nginx.conf  src/
+~/documents/docker$ ls -la
+total 8
+drwxr-xr-x   4 rainbowtape  staff   128B 15 Jan 04:00 ./
+drwx------+ 33 rainbowtape  staff   1.0K 11 Jan 21:21 ../
+-rw-r--r--   1 rainbowtape  staff   641B 15 Jan 03:04 nginx.conf
+drwxr-xr-x   3 rainbowtape  staff    96B 15 Jan 03:59 src/
+~/documents/docker$ cd src
+~/documents/docker/src$ ls -la
+total 8
+drwxr-xr-x  3 rainbowtape  staff    96B 15 Jan 03:59 ./
+drwxr-xr-x  4 rainbowtape  staff   128B 15 Jan 04:00 ../
+-rw-r--r--  1 rainbowtape  staff   315B 15 Jan 03:59 index.html
+~/documents/docker/src$
+{% endhighlight %}
