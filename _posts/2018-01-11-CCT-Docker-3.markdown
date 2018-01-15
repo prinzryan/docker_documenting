@@ -17,7 +17,7 @@ You need `docker run` command
 (e.g. `3000:80` -> `localhost:3000/` will access container's port `localhost:80/` )
 
 {% highlight terminal %}
-~/documents/docker$ docker run --name my-nginx -p 80:80 nginx:1.12.2-alpine
+~/documents/docker$ docker run --name my-nginx -p 3000:80 nginx:1.12.2-alpine
 {% endhighlight %}
 
 
@@ -25,7 +25,7 @@ If you add `-d` option in Command line, you can run container as -Demon Mode.
 which mean it will run in background.
 
 {% highlight terminal %}
-~/documents/docker$ docker run -d --name my-nginx -p 80:80 nginx:1.12.2-alpine
+~/documents/docker$ docker run -d --name my-nginx -p 3000:80 nginx:1.12.2-alpine
 {% endhighlight %}
 
 If you want to run command line tool in the container, use `docker exec` command.
@@ -120,7 +120,7 @@ As you can see we deleted docker container, and we have our own configuration fi
 in order to make docker container with this file.
 
 {% highlight terminal %}
-~/documents/docker$ docker run -d -v /Users/rainbowtape/documents/docker/nginx.conf:/etc/nginx/nginx.conf:ro --name my-new-nginx -p 80:80 nginx:1.12.2-alpine
+~/documents/docker$ docker run -d -v /Users/rainbowtape/documents/docker/nginx.conf:/etc/nginx/nginx.conf:ro --name my-new-nginx -p 3000:80 nginx:1.12.2-alpine
 ~/documents/docker$ docker ps
 CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                NAMES
 1f47e275ade3        nginx:1.12.2-alpine   "nginx -g 'daemon of…"   13 seconds ago      Up 12 seconds       0.0.0.0:80->80/tcp   my-new-nginx
@@ -131,7 +131,7 @@ CONTAINER ID        IMAGE                 COMMAND                  CREATED      
 On the top of that, using more this `-v` option, you can link your local directory to Container's source directory for developing apps.
 
 {% highlight terminal %}
-~/documents/docker$ docker run -d -v /Users/rainbowtape/documents/docker/nginx.conf:/etc/nginx/nginx.conf -v /Users/rainbowtape/documents/docker/src:/usr/share/nginx/html --name my-new-nginx -p 80:80 nginx:1.12.2-alpine
+~/documents/docker$ docker run -d -v /Users/rainbowtape/documents/docker/nginx.conf:/etc/nginx/nginx.conf -v /Users/rainbowtape/documents/docker/src:/usr/share/nginx/html --name my-new-nginx -p 3000:80 nginx:1.12.2-alpine
 ~/documents/docker$ ls
 nginx.conf  src/
 ~/documents/docker$ ls -la
