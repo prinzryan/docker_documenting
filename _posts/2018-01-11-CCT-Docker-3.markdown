@@ -11,9 +11,8 @@ Now we are ready to run Docker. We have images.
 In order to run docker, we need to make container from Images.
 
 First, To make a container and run it,
-You need `docker run` command
-`--name` set name of containers.
-`-p` set port-setting of containers. First number is port of Host, second number is port of container.
+You need `docker run` command with `--name` option for setting name of containers.
+and `-p` set port-setting of containers. First number is port of Host, second number is port of container.
 (e.g. `3000:80` -> `localhost:3000/` will access container's port `localhost:80/` )
 
 {% highlight terminal %}
