@@ -151,7 +151,7 @@ abbr[title] {
 /* Code */
 code,
 pre {
-  font-family: 'PT mono',Consolas, "Courier", monospace;
+  font-family: monospace,'Consolas','PT mono', "Courier";
 }
 code {
   padding: .25em .5em;

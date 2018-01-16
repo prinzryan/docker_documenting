@@ -32,8 +32,8 @@
 */
 
 html {
-  font-family: 'Varela','Karla','PT Sans', Helvetica, Arial, sans-serif;
-  letter-spacing: -0.04em
+  font-family: 'Open Sans','Varela','Karla','PT Sans', Helvetica, Arial, sans-serif;
+  letter-spacing: -0.02em
 }
 @media (min-width: 48em) {
   html {
