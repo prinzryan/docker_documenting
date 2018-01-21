@@ -1,0 +1,74 @@
+---
+layout: post
+title: "CCT Pi Cloud Project Using a Docker- Part 4"
+date: 2018-01-19 02:53:24 +0000
+---
+
+
+## Making Custom Docker Image Using Dockerfile
+
+Reason we are making Dockerfile is making your custom environment for developing an apps.
+Sometimes you need to make image with your own configuration. Using Dockerfile, you can easily archive this.
+
+
+### What is Dockerfile?
+
+Dockerfile has configuration you made in it.
+Followings are example of configuration of Dockerfile.
+
+#### ENTRYPOINT
+
+Specifies the command that a container created from the image always runs. In this example, the command is /usr/sbin/httpd -D FOREGROUND, which starts the HTTP server process.
+
+#### EXPOSE
+Defines that the specified port is available to service incoming requests. You can use the -p or -P options with docker run to map this port to another port on the host. Alternatively, you can use the --link option with docker run to allow another container to access the port over Docker's internal network (see Section 4.6, “Communicating Between Docker Containers”).
+
+#### FROM
+Defines the image that Docker uses as a basis for the new image.
+
+#### MAINTAINER
+Defines who is responsible for the Dockerfile.
+
+#### RUN
+Defines the commands that Docker runs to modify the new image. In the example, the RUN lines set up the web proxy, install the httpd package, and create a simple home page for the server.
+
+
+In this example we made 2 changes. - Notice COPY section.
+
+
+{% highlight terminal %}
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$ nano Dockerfile
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$ cat Dockerfile
+FROM nginx:1.12.2-alpine
+MAINTAINER jin@email.com
+COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./src /usr/share/nginx/html
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$ 
+{% endhighlight %}
+
+
+Then build the custom Images
+
+{% highlight terminal %}
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$ docker build -t my-custom-image:1.0 .
+Sending build context to Docker daemon   5.12kB
+Step 1/4 : FROM nginx:1.12.2-alpine
+ ---> 24ed1c575f81
+Step 2/4 : MAINTAINER jin@email.com
+ ---> Running in 4983b368c672
+Removing intermediate container 4983b368c672
+ ---> 25f9a70454ad
+Step 3/4 : COPY ./nginx.conf /etc/nginx/nginx.conf
+ ---> 8c9978ad842c
+Step 4/4 : COPY ./src /usr/share/nginx/html
+ ---> 824782108998
+Successfully built 824782108998
+Successfully tagged my-custom-image:1.0
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+my-custom-image     1.0                 824782108998        38 seconds ago      15.5MB
+nginx               1.12.2-alpine       24ed1c575f81        10 days ago         15.5MB
+rainbowtape@Jins-MacBook-Pro:~/documents/docker$
+
+{% endhighlight %}
