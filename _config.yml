@@ -27,7 +27,8 @@ github_username:
 # Build settings
 
 markdown: kramdown
-remote_theme: jekyll-theme-hyde
+# remote_theme:
+theme: pixyll_ashawley
 plugins:
   - jekyll-feed
   - jekyll-paginate
