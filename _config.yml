@@ -13,12 +13,10 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Jin Lim
+title: CCT Pi-Cloud Docker Explanation.
 email: loveandpeace.jin@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Junior Software Developer and IT professional who
-  like to solve the complex issue in a creative way.
-  I have a background in Sound engineering.
+  Documenting of Group project - Pi Cloud - of CCT. 
 baseurl: "docker_documenting" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username:
@@ -28,15 +26,16 @@ github_username:
 
 markdown: kramdown
 # remote_theme:
-theme: pixyll_ashawley
+theme: jekyll-theme-cayman
+
 plugins:
   - jekyll-feed
   - jekyll-paginate
 version:          2.1.0
 
-author:
-  name:           'Jin Lim'
-  url:            https://github.com/rbwtp/
+#author:
+#  name:           'Jin Lim'
+#  url:            https://github.com/rbwtp/
 
 version:          2.1.0
 
